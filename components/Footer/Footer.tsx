@@ -8,7 +8,7 @@ function Footer() {
         <div className={css.wrap}>
           <p>Developer: Maryna Tkachenko</p>
           <p>
-            Contact us:
+            Contact us:{" "}
             <a href="mailto:marynapanchenko19@gmail.com">
               marynapanchenko19@gmail.com
             </a>

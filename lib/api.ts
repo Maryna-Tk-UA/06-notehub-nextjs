@@ -3,31 +3,53 @@ import type { Note, NoteTag } from "../types/note";
 
 const BASE_URL = "https://notehub-public.goit.study/api/notes";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN as string;
-const PER_PAGE = 12;
+// const PER_PAGE = 12;
 
-interface fetchNotesProps {
-  page: number;
-  searchValue: string;
-}
+// interface fetchNotesProps {
+//   page: number;
+//   searchValue: string;
+// }
 
 interface fetchNotesResponse {
   notes: Note[];
   totalPages: number;
 }
 
-export async function fetchNotes({ page, searchValue }: fetchNotesProps) {
+//! Експериментально
+export async function fetchNotes() {
   const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
-    params: {
-      page,
-      perPage: PER_PAGE,
-      search: searchValue,
-    },
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
   });
   return data;
 }
+//! Експериментально
+
+// export async function fetchNotes({ page, searchValue }: fetchNotesProps) {
+//   const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
+//     params: {
+//       page,
+//       perPage: PER_PAGE,
+//       search: searchValue,
+//     },
+//     headers: {
+//       Authorization: `Bearer ${ACCESS_TOKEN}`,
+//     },
+//   });
+//   return data;
+// }
+
+//! Запит за id
+export async function fetchNoteById(id: string) {
+  const { data } = await axios.get<Note>(`${BASE_URL}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+  return data;
+}
+//! Запит за id
 
 interface createNoteProps {
   title: string;
@@ -51,6 +73,4 @@ export async function deleteNote(noteId: string) {
     },
   });
   return res.data;
-  // робить запит на видалення нотатки за id.
-  // Приймає id і повертає інфу про видалену нотатку
 }
