@@ -38,18 +38,30 @@
 import { fetchNotes } from "@/lib/api";
 import css from "./NotesPage.module.css";
 import { Toaster } from "react-hot-toast";
-import NoteList from "@/components/NoteList/NoteList";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import NotesClient from "./Notes.client";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 async function Notes() {
-  const res = await fetchNotes();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["note"],
+    queryFn: () => fetchNotes(),
+  });
 
   return (
     <div className={css.app}>
       <Toaster />
       <header className={css.toolbar}>
-        <h3>Header</h3>
+        <SearchBox />
       </header>
-      {res?.notes.length > 0 && <NoteList notes={res.notes} />}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <NotesClient />
+      </HydrationBoundary>
     </div>
   );
 }
