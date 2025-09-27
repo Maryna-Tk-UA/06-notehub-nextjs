@@ -15,20 +15,6 @@ interface fetchNotesResponse {
   totalPages: number;
 }
 
-//! Експериментально
-// export async function fetchNotes() {
-//   const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
-//     params: {
-//       perPage: PER_PAGE,
-//     },
-//     headers: {
-//       Authorization: `Bearer ${ACCESS_TOKEN}`,
-//     },
-//   });
-//   return data;
-// }
-//! Експериментально
-
 export async function fetchNotes({ page, searchValue }: fetchNotesProps) {
   const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
     params: {

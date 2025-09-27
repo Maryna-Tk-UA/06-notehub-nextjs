@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchNotes } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import css from "./NotesPage.module.css";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { useState } from "react";
@@ -33,6 +33,7 @@ function NotesClient({ initialPage, initialSearch }: NotesClientProps) {
     queryKey: ["note", curPage, searchValue],
     queryFn: () => fetchNotes({ page: curPage, searchValue }),
     refetchOnMount: false,
+    placeholderData: keepPreviousData,
   });
 
   return (
@@ -61,22 +62,3 @@ function NotesClient({ initialPage, initialSearch }: NotesClientProps) {
 }
 
 export default NotesClient;
-
-// import NoteList from "@/components/NoteList/NoteList";
-// import { fetchNotes } from "@/lib/api";
-// import { useQuery } from "@tanstack/react-query";
-
-// // Клієнтська логіка отримання списку нотаток за допомогою
-// // useQuery та їх відображення
-
-// function NotesClient() {
-//   const { data } = useQuery({
-//     queryKey: ["note"],
-//     queryFn: () => fetchNotes(),
-//     refetchOnMount: false,
-//   });
-
-//   return <div>{data && <NoteList notes={data.notes} />}</div>;
-// }
-
-// export default NotesClient;
