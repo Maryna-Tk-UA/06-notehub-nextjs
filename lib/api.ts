@@ -5,10 +5,10 @@ const BASE_URL = "https://notehub-public.goit.study/api/notes";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN as string;
 const PER_PAGE = 12;
 
-// interface fetchNotesProps {
-//   page: number;
-//   searchValue: string;
-// }
+interface fetchNotesProps {
+  page: number;
+  searchValue: string;
+}
 
 interface fetchNotesResponse {
   notes: Note[];
@@ -16,25 +16,10 @@ interface fetchNotesResponse {
 }
 
 //! Експериментально
-export async function fetchNotes() {
-  const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
-    params: {
-      perPage: PER_PAGE,
-    },
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
-  return data;
-}
-//! Експериментально
-
-// export async function fetchNotes({ page, searchValue }: fetchNotesProps) {
+// export async function fetchNotes() {
 //   const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
 //     params: {
-//       page,
 //       perPage: PER_PAGE,
-//       search: searchValue,
 //     },
 //     headers: {
 //       Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -42,6 +27,21 @@ export async function fetchNotes() {
 //   });
 //   return data;
 // }
+//! Експериментально
+
+export async function fetchNotes({ page, searchValue }: fetchNotesProps) {
+  const { data } = await axios.get<fetchNotesResponse>(`${BASE_URL}`, {
+    params: {
+      page,
+      perPage: PER_PAGE,
+      search: searchValue,
+    },
+    headers: {
+      Authorization: `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+  return data;
+}
 
 //! Запит за id
 export async function fetchNoteById(id: string) {

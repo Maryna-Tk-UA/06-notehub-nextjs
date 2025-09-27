@@ -39,11 +39,11 @@ function NoteForm({ onClose }: NoteFormProps) {
   const mutation = useMutation({
     mutationFn: createNote,
     onSuccess: (data) => {
-      toast.success(`Added a new note with title ${data.title}`, {
+      toast.success(`Added a new note with title "${data.title}"`, {
         position: "top-center",
         duration: 2500,
       });
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ["note"] });
       onClose();
     },
     onError: () => {

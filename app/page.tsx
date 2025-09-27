@@ -3,7 +3,7 @@ import css from "./Home.module.css";
 // SSR-component, в якому заздалегідь виконується prefetch (попереднє
 // завантаження даних через TanStack Query) з гідратацією кеша.
 
-function Notes() {
+function Home() {
   return (
     <main>
       <div className={css.container}>
@@ -24,4 +24,4 @@ function Notes() {
   );
 }
 
-export default Notes;
+export default Home;
